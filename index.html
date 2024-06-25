@@ -1,1 +1,94 @@
-none
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>帮领导按电梯</title>
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .gradient-background {
+            background: linear-gradient(to bottom, #9370db, #4b0082);
+            height: 100%;
+        }
+
+        .elevator-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .image-container {
+            width: 100%;
+            height: auto;
+        }
+
+        .right-image {
+            width: 30%;
+            height: auto;
+            margin-left: auto;
+        }
+
+        button {
+            border-radius: 10px;
+            padding: 10px 20px;
+            font-size: 1.2em;
+            margin-top: 10px;
+        }
+
+        /* 手机屏幕样式 */
+        @media (max-width: 600px) {
+            .elevator-container {
+                flex-direction: column;
+            }
+            .image-container {
+                width: 100%;
+            }
+            .right-image {
+                width: 100%;
+            }
+            button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body class="gradient-background">
+    <div class="elevator-container">
+        <div class="image-container">
+            <img id="myImage" src="img/close.png" alt="close" style="width: 40%; height: auto;">
+            <img class="right-image" src="img/man.png" alt="右侧图片"> <!-- 添加右侧图片 -->
+        </div>
+        <button id="toggleButton" onclick="toggleDoor()">开门</button>
+        <audio id="doorSound" src="music.mp3"></audio>
+    </div>
+
+    <script>
+        function toggleDoor() {
+            var image = document.getElementById("myImage");
+            var button = document.getElementById("toggleButton");
+            var sound = document.getElementById("doorSound");
+
+            if (image.src.endsWith("img/close.png")) {
+                image.src = "img/open.png";
+                image.alt = "open";
+                button.textContent = "关门";
+                sound.currentTime = 0; // 重置音乐播放进度
+                sound.play(); // 播放音乐
+            } else {
+                image.src = "img/close.png";
+                image.alt = "close";
+                button.textContent = "开门";
+                sound.pause(); // 停止音乐
+                sound.currentTime = 0; // 重置音乐播放进度
+            }
+        }
+    </script>
+</body>
+</html>
